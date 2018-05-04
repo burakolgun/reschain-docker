@@ -9,6 +9,7 @@ services:
     depends_on:
       - api
   api:
+    container_name: reschain-api
     build: ${PROJECT_ROOT}/reschain-api/
     ports:
       - 6000:9000
@@ -36,13 +37,7 @@ services:
       - 6003:6379
     volumes:
       - ../RedisData/data:/data
-    restart: always
+#    restart: always
     command: redis-server --appendonly yes
     depends_on:
       - api
-  notification:
-    build: ${PROJECT_ROOT}/reschain-go/
-    ports:
-     - 2001:80
-    volumes:
-      - ${PROJECT_ROOT}/reschain-go/:/usr/local/go/src/reschain-go
